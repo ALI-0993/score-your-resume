@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ResumeIQ — AI Career Optimization Platform</title>
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap"
+    rel="stylesheet"
+  />
+
+  <!-- Custom CSS (animations, variables, overrides) -->
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+
+<body class="bg-[#09090b] text-[#fafafa] font-sans antialiased">
+
+  <!-- ═══════════════════════════════════════════
+       HEADER
+  ═══════════════════════════════════════════ -->
+  <header id="app-header" class="header">
+    <!-- Logo -->
+    <div class="header-logo">
+      <div class="logo-icon">✦</div>
+      <span class="logo-text">ResumeIQ</span>
+    </div>
+
+    <!-- Nav -->
+    <nav class="header-nav">
+      <a href="#" class="nav-link active">Dashboard</a>
+      <a href="#" class="nav-link">History</a>
+      <a href="#" class="nav-link">Templates</a>
+    </nav>
+
+    <!-- Right Actions -->
+    <div class="header-actions">
+      <button id="btn-upgrade" class="btn-upgrade">Upgrade Pro</button>
+      <div class="avatar-circle">👤</div>
+    </div>
+  </header>
+
+  <!-- ═══════════════════════════════════════════
+       LAYOUT WRAPPER (Sidebar + Main)
+  ═══════════════════════════════════════════ -->
+  <div class="app-layout">
+
+    <!-- ─────────────────────────────────────────
+         SIDEBAR
+    ───────────────────────────────────────── -->
+    <aside id="app-sidebar" class="sidebar">
+      <div class="sidebar-brand">
+        <div class="brand-name">ResumeIQ</div>
+        <div class="brand-sub">Career Engine</div>
+      </div>
+
+      <nav class="sidebar-nav">
+        <div class="sidebar-item active" data-page="dashboard">
+          <span class="sidebar-icon">⊞</span>
+          <span>Dashboard</span>
+        </div>
+        <div class="sidebar-item" data-page="analytics">
+          <span class="sidebar-icon">📊</span>
+          <span>Analytics</span>
+        </div>
+        <div class="sidebar-item" data-page="resumes">
+          <span class="sidebar-icon">📄</span>
+          <span>Resumes</span>
+        </div>
+        <div class="sidebar-item" data-page="jobs">
+          <span class="sidebar-icon">💼</span>
+          <span>Jobs</span>
+        </div>
+        <div class="sidebar-item" data-page="settings">
+          <span class="sidebar-icon">⚙</span>
+          <span>Settings</span>
+        </div>
+      </nav>
+    </aside>
+
+    <!-- ─────────────────────────────────────────
+         MAIN CONTENT
+    ───────────────────────────────────────── -->
+    <main id="app-main" class="main-content">
+
+      <!-- ───────────────────────────────────────
+           PERSONALIZATION BAR
+      ─────────────────────────────────────────── -->
+      <section id="personalize-bar" class="personalize-bar">
+
+        <!-- Role Selector -->
+        <div class="personalize-group">
+          <div class="personalize-label">Target Role</div>
+          <div class="pill-group" id="role-group">
+            <button class="pill selected" data-group="role">Frontend</button>
+            <button class="pill" data-group="role">Backend</button>
+            <button class="pill" data-group="role">Data Science</button>
+            <button class="pill" data-group="role">Full Stack</button>
+            <button class="pill" data-group="role">DevOps</button>
+          </div>
+        </div>
+
+        <!-- Experience Level Selector -->
+        <div class="personalize-group">
+          <div class="personalize-label">Experience Level</div>
+          <div class="pill-group" id="level-group">
+            <button class="pill" data-group="level">Fresher (0–1yr)</button>
+            <button class="pill selected" data-group="level">Mid-Level (2–4yr)</button>
+            <button class="pill" data-group="level">Senior (5+yr)</button>
+          </div>
+        </div>
+
+        <!-- Auto Badge -->
+        <div class="auto-badge">
+          <div class="pulse-dot"></div>
+          Auto-Optimization Active
+        </div>
+
+      </section>
+
+      <!-- ───────────────────────────────────────
+           3-COLUMN GRID
+      ─────────────────────────────────────────── -->
+      <div class="three-col-grid">
+
+        <!-- ═══════════════════════════════════
+             LEFT PANEL
+        ════════════════════════════════════════ -->
+        <div class="left-panel">
+
+          <!-- Upload Card -->
+          <div class="card" id="upload-card">
+            <div class="card-header">
+              <span>Resume Input</span>
+            </div>
+            <div class="card-body">
+
+              <!-- Drag & Drop Zone -->
+              <div
+                id="upload-zone"
+                class="upload-zone"
+                role="button"
+                tabindex="0"
+                aria-label="Upload resume file"
+              >
+                <div class="upload-icon">↑</div>
+                <div class="upload-title">Drop your PDF or Docx</div>
+                <div class="upload-sub">
+                  Maximum file size 5MB — or
+                  <span class="upload-browse" id="upload-browse-btn">browse</span>
+                </div>
+              </div>
+              <input
+                type="file"
+                id="file-input"
+                accept=".pdf,.docx,.txt"
+                class="hidden"
+                aria-label="Choose resume file"
+              />
+
+              <!-- File name display (hidden until file selected) -->
+              <div id="file-name-display" class="file-name-display hidden">
+                <span class="file-name-icon">✓</span>
+                <span id="file-name-text"></span>
+              </div>
+
+              <!-- Divider -->
+              <div class="or-divider">— or paste below —</div>
+
+              <!-- Resume Textarea -->
+              <label for="resume-textarea" class="input-label">Current Resume Content</label>
+              <textarea
+                id="resume-textarea"
+                class="input-textarea"
+                rows="6"
+                placeholder="Senior Frontend Engineer with 5 years experience in React, TypeScript, and Node.js. Proven track record of delivering high-quality web applications..."
+                aria-label="Paste your resume text here"
+              ></textarea>
+
+            </div>
+          </div>
+
+          <!-- Job Description Card (Collapsible) -->
+          <div class="card" id="jd-card">
+            <div
+              class="collapsible-header"
+              id="jd-toggle"
+              role="button"
+              tabindex="0"
+              aria-expanded="true"
+              aria-controls="jd-content"
+            >
+              <span>Job Description</span>
+              <span class="chevron open" id="jd-chevron" aria-hidden="true">▾</span>
+            </div>
+            <div id="jd-content" class="card-body collapsible-content">
+              <textarea
+                id="jd-textarea"
+                class="input-textarea"
+                rows="5"
+                placeholder="We are looking for a Senior Frontend Engineer to lead our Core UI team. Experience with Next.js, Tailwind CSS, and performance optimization is a must..."
+                aria-label="Paste job description here"
+              ></textarea>
+            </div>
+          </div>
+
+          <!-- Live Preview Card -->
+          <div class="card" id="preview-card">
+            <div class="card-header">
+              <span>Live Preview</span>
+              <!-- Section color dots -->
+              <div class="preview-dots" aria-hidden="true">
+                <span class="dot dot-blue"></span>
+                <span class="dot dot-purple"></span>
+                <span class="dot dot-green"></span>
+                <span class="dot dot-amber"></span>
+              </div>
+            </div>
+
+            <!-- Preview content (populated by ui.js) -->
+            <div id="preview-content" class="card-body">
+              <!-- Empty state -->
+              <div id="preview-empty" class="empty-state">
+                <div class="empty-icon">📄</div>
+                <div class="empty-title">No resume yet</div>
+                <div class="empty-sub">
+                  Upload or paste your resume to see a live preview with detected sections
+                </div>
+              </div>
+              <!-- Sections (hidden until analysis) -->
+              <div id="preview-sections" class="hidden"></div>
+            </div>
+
+            <!-- Skills Gap (hidden until analysis) -->
+            <div id="skills-gap" class="hidden skills-gap-section">
+              <div class="skills-gap-label">Skills Gap Analysis</div>
+              <div id="matched-skills"></div>
+              <div id="missing-skills"></div>
+            </div>
+          </div>
+
+          <!-- Analyze Button -->
+          <button
+            id="analyze-btn"
+            class="btn-primary btn-glow"
+            aria-label="Analyze resume with AI"
+          >
+            <span id="analyze-btn-icon" aria-hidden="true">✦</span>
+            <span id="analyze-btn-text">Analyze with AI</span>
+          </button>
+
+          <!-- Powered by label -->
+          <p class="powered-by-label">
+            Powered by Gemini AI • Results in ~5 seconds
+          </p>
+
+          <!-- Loading bar (hidden until analyzing) -->
+          <div id="loading-bar-wrap" class="hidden">
+            <div class="loading-bar-track">
+              <div class="loading-bar-fill"></div>
+            </div>
+            <p id="loading-status-text" class="loading-status-text">
+              Reading your resume...
+            </p>
+          </div>
+
+        </div>
+        <!-- /LEFT PANEL -->
+
+        <!-- ═══════════════════════════════════
+             MIDDLE PANEL
+        ════════════════════════════════════════ -->
+        <div class="middle-panel">
+
+          <!-- Score Card -->
+          <div class="card" id="score-card">
+            <div class="card-header">
+              <span>Analysis Report</span>
+              <span id="live-ai-badge" class="live-badge hidden">● Live AI Model</span>
+            </div>
+
+            <!-- Empty state -->
+            <div id="score-empty" class="empty-state">
+              <div class="empty-icon">📊</div>
+              <div class="empty-title">Waiting for analysis</div>
+              <div class="empty-sub">
+                Click "Analyze with AI" to get your personalized score breakdown
+              </div>
+            </div>
+
+            <!-- Score content (hidden until analysis) -->
+            <div id="score-content" class="hidden">
+
+              <!-- Ring + Bars row -->
+              <div class="score-row">
+
+                <!-- Score Ring -->
+                <div class="score-ring-wrap">
+                  <div class="score-ring" id="score-ring" aria-label="Match score">
+                    <svg width="120" height="120" viewBox="0 0 120 120" aria-hidden="true">
+                      <circle cx="60" cy="60" r="50"
+                        fill="none" stroke="#27272a" stroke-width="8"/>
+                      <circle
+                        id="ring-circle"
+                        class="ring-circle"
+                        cx="60" cy="60" r="50"
+                        fill="none"
+                        stroke="url(#ringGrad)"
+                        stroke-width="8"
+                        stroke-linecap="round"
+                      />
+                      <defs>
+                        <linearGradient id="ringGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                          <stop offset="0%" stop-color="#a78bfa"/>
+                          <stop offset="100%" stop-color="#34d399"/>
+                        </linearGradient>
+                      </defs>
+                    </svg>
+                    <div class="score-ring-value">
+                      <span id="score-number" class="score-number">0%</span>
+                      <span class="score-label">Match Score</span>
+                    </div>
+                  </div>
+                  <p class="score-vs-label">vs Job Description</p>
+                </div>
+
+                <!-- Progress Bars -->
+                <div class="score-bars" id="score-bars">
+                  <!-- Skills -->
+                  <div class="prog-item">
+                    <div class="prog-header">
+                      <span class="prog-label">Skills</span>
+                      <span class="prog-value" id="skills-val" style="color:var(--color-primary)">0%</span>
+                    </div>
+                    <div class="prog-track">
+                      <div class="prog-fill prog-purple" id="skills-bar"></div>
+                    </div>
+                  </div>
+                  <!-- Experience -->
+                  <div class="prog-item">
+                    <div class="prog-header">
+                      <span class="prog-label">Experience</span>
+                      <span class="prog-value" id="exp-val" style="color:#60a5fa">0%</span>
+                    </div>
+                    <div class="prog-track">
+                      <div class="prog-fill prog-blue" id="exp-bar"></div>
+                    </div>
+                  </div>
+                  <!-- Keywords -->
+                  <div class="prog-item">
+                    <div class="prog-header">
+                      <span class="prog-label">Keywords</span>
+                      <span class="prog-value" id="kw-val" style="color:#34d399">0%</span>
+                    </div>
+                    <div class="prog-track">
+                      <div class="prog-fill prog-teal" id="kw-bar"></div>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+              <!-- /score-row -->
+
+              <!-- Why this score toggle -->
+              <button
+                id="why-toggle"
+                class="why-toggle"
+                aria-expanded="false"
+                aria-controls="why-content"
+              >
+                <span>Why this score?</span>
+                <span id="why-chevron" aria-hidden="true">▾</span>
+              </button>
+
+              <!-- Why content (hidden by default) -->
+              <div id="why-content" class="why-content hidden" role="region">
+                <!-- Populated by ui.js -->
+              </div>
+
+            </div>
+            <!-- /score-content -->
+          </div>
+          <!-- /Score Card -->
+
+          <!-- Missing Keywords Card (hidden until analysis) -->
+          <div class="card hidden" id="keywords-card">
+            <div class="card-header">
+              <span>Missing Keywords</span>
+              <span id="kw-badge" class="badge badge-critical">5 Critical</span>
+            </div>
+            <div class="card-body" id="kw-pills">
+              <!-- Keyword pills populated by ui.js -->
+            </div>
+          </div>
+
+          <!-- Section Rewrite Card (hidden until analysis) -->
+          <div class="card hidden" id="rewrite-card">
+
+            <!-- Tabs -->
+            <div class="tabs-bar" id="rewrite-tabs" role="tablist">
+              <button class="tab active" role="tab" aria-selected="true"  data-tab="summary">Summary</button>
+              <button class="tab"        role="tab" aria-selected="false" data-tab="skills">Skills</button>
+              <button class="tab"        role="tab" aria-selected="false" data-tab="experience">Experience</button>
+              <button class="tab"        role="tab" aria-selected="false" data-tab="education">Education</button>
+            </div>
+
+            <!-- Tab panels (populated by ui.js) -->
+            <div id="tab-panel-summary"    class="tab-panel active" role="tabpanel"></div>
+            <div id="tab-panel-skills"     class="tab-panel hidden" role="tabpanel"></div>
+            <div id="tab-panel-experience" class="tab-panel hidden" role="tabpanel"></div>
+            <div id="tab-panel-education"  class="tab-panel hidden" role="tabpanel"></div>
+
+            <!-- Copy full resume -->
+            <div class="card-footer">
+              <button id="copy-resume-btn" class="btn-secondary">
+                ⎘ Copy Full Improved Resume
+              </button>
+            </div>
+          </div>
+          <!-- /Rewrite Card -->
+
+          <!-- Re-analyze button (hidden until first analysis) -->
+          <div id="reanalyze-wrap" class="hidden">
+            <button id="reanalyze-btn" class="btn-secondary">
+              ↺ Re-analyze Resume
+            </button>
+          </div>
+
+        </div>
+        <!-- /MIDDLE PANEL -->
+
+        <!-- ═══════════════════════════════════
+             RIGHT PANEL
+        ════════════════════════════════════════ -->
+        <div class="right-panel">
+
+          <!-- AI Coach Card -->
+          <div class="card" id="coach-card">
+
+            <!-- Coach Header -->
+            <div class="coach-header">
+              <div class="coach-avatar" aria-hidden="true">🤖</div>
+              <div>
+                <div class="coach-name">AI Career Coach</div>
+                <div class="coach-status">Active Optimization</div>
+              </div>
+            </div>
+
+            <!-- Coach idle state -->
+            <div id="coach-idle" class="card-body">
+              <p class="coach-idle-text">
+                Upload your resume and click Analyze. I'll give you personalized,
+                role-specific feedback to help you land more interviews.
+              </p>
+            </div>
+
+            <!-- Coach active content (hidden until analysis) -->
+            <div id="coach-active" class="hidden">
+
+              <!-- Why score section -->
+              <div class="coach-section">
+                <div class="coach-section-title">Why You Got This Score</div>
+                <p id="coach-why-text" class="coach-text"></p>
+              </div>
+
+              <!-- Rewrite button -->
+              <div class="coach-section">
+                <button id="rewrite-btn" class="btn-primary btn-glow">
+                  ✦ Rewrite Full Resume
+                </button>
+              </div>
+
+              <!-- Keyword matching -->
+              <div class="coach-section">
+                <div class="coach-section-title">Keyword Matching</div>
+                <div class="match-counts">
+                  <span id="matched-count">12 Matched</span>
+                  <span id="missing-count" class="missing-count-text">5 Missing</span>
+                </div>
+                <div class="match-bar">
+                  <div class="match-bar-green" id="match-bar-green" style="width:70%"></div>
+                  <div class="match-bar-red"   id="match-bar-red"   style="width:30%"></div>
+                </div>
+                <p id="match-tip" class="match-tip-text"></p>
+              </div>
+
+              <!-- Confidence + Download (hidden until rewrite) -->
+              <div id="confidence-section" class="hidden coach-section">
+                <div id="confidence-quote" class="confidence-quote"></div>
+                <button id="download-btn" class="btn-green">
+                  ↓ Download Improved Resume
+                </button>
+              </div>
+
+            </div>
+            <!-- /coach-active -->
+
+          </div>
+          <!-- /AI Coach Card -->
+
+          <!-- Priority Fixes Card (hidden until analysis) -->
+          <div class="card hidden" id="fixes-card">
+            <div class="card-header">Priority Fixes</div>
+            <div class="card-body" id="fixes-list">
+              <!-- Fix cards populated by ui.js -->
+            </div>
+          </div>
+
+        </div>
+        <!-- /RIGHT PANEL -->
+
+      </div>
+      <!-- /three-col-grid -->
+
+    </main>
+    <!-- /app-main -->
+
+  </div>
+  <!-- /app-layout -->
+
+  <!-- ═══════════════════════════════════════════
+       BOTTOM PROGRESS BAR
+  ═══════════════════════════════════════════ -->
+  <footer id="bottom-bar" class="bottom-bar">
+
+    <!-- Steps -->
+    <div class="steps-row" role="list" aria-label="Progress steps">
+
+      <div class="step" role="listitem">
+        <div class="step-circle done" id="step-1" aria-label="Step 1: Upload, completed">✓</div>
+        <span class="step-name done" id="step-1-name">Upload</span>
+      </div>
+      <div class="step-line" id="step-line-1"></div>
+
+      <div class="step" role="listitem">
+        <div class="step-circle" id="step-2" aria-label="Step 2: Analyze">2</div>
+        <span class="step-name" id="step-2-name">Analyze</span>
+      </div>
+      <div class="step-line" id="step-line-2"></div>
+
+      <div class="step" role="listitem">
+        <div class="step-circle" id="step-3" aria-label="Step 3: Rewrite">3</div>
+        <span class="step-name" id="step-3-name">Rewrite</span>
+      </div>
+      <div class="step-line" id="step-line-3"></div>
+
+      <div class="step" role="listitem">
+        <div class="step-circle" id="step-4" aria-label="Step 4: Download">4</div>
+        <span class="step-name" id="step-4-name">Download</span>
+      </div>
+
+    </div>
+    <!-- /steps-row -->
+
+    <!-- Right side actions -->
+    <div class="bottom-actions">
+      <div id="analysis-complete-badge" class="analysis-complete hidden" aria-live="polite">
+        ✓ Analysis Complete
+      </div>
+      <button id="continue-btn" class="btn-continue">
+        Continue <span aria-hidden="true">→</span>
+      </button>
+    </div>
+
+  </footer>
+  <!-- /bottom-bar -->
+
+  <!-- ═══════════════════════════════════════════
+       JAVASCRIPT — loaded at end of body
+  ═══════════════════════════════════════════ -->
+  <script src="js/utils.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/analysis.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/app.js"></script>
+
+</body>
+</html>
