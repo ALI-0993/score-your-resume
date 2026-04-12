@@ -1,0 +1,35 @@
+@import "tailwindcss";
+
+.nav-item {
+  @apply flex items-center gap-3 px-4 py-2 text-sm text-[#a1a1aa] cursor-pointer border-l-2 border-transparent transition-all;
+}
+.nav-item:hover {
+  @apply text-white bg-[#a78bfa]/10;
+}
+.nav-item.active {
+  @apply text-[#f97316] border-[#f97316] bg-[#f97316]/10;
+}
+
+.tab-btn {
+  @apply px-4 py-1.5 text-xs text-[#a1a1aa] border border-transparent rounded-lg transition-all;
+}
+.active-tab {
+  @apply text-[#f97316] border-[#f97316] bg-[#f97316]/10;
+}
+
+
+.insight-card {
+  @apply bg-[#111114] border border-[#27272a] rounded-xl p-4;
+}
+.ic-header {
+  @apply flex items-center gap-2 text-xs font-medium mb-3;
+}
+.ic-item {
+  @apply flex items-start gap-2 text-xs text-[#a1a1aa] py-1;
+}
+.ic-dot {
+  @apply w-1.5 h-1.5 rounded-full mt-1 shrink-0;
+}
+.qa-btn {
+  @apply flex items-center justify-between bg-[#18181b] border border-[#27272a] rounded-lg px-3 py-2.5 text-xs text-[#a1a1aa] hover:border-[#a78bfa] hover:text-[#a78bfa] transition-all;
+}
