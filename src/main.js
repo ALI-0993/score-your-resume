@@ -18,24 +18,18 @@ export function navigate(page) {
 }
 
 window.handleNav = (page) => {
-  document
-    .querySelectorAll("#nav-ats, #nav-history, #nav-templates")
-    .forEach((n) => {
-      n.classList.remove("text-[#a78bfa]", "font-medium");
-      n.classList.add("text-[#a1a1aa]");
-    });
-  const map = {
-    upload: "nav-ats",
-    history: "nav-history",
-    templates: "nav-templates",
-  };
-  const el = document.getElementById(map[page]);
+  document.querySelectorAll('#nav-ats, #nav-history, #nav-templates').forEach(n => {
+    n.classList.remove('text-[#f97316]', 'font-medium')
+    n.classList.add('text-[#a1a1aa]')
+  })
+  const map = { upload: 'nav-ats', history: 'nav-history', templates: 'nav-templates' }
+  const el = document.getElementById(map[page])
   if (el) {
-    el.classList.remove("text-[#a1a1aa]");
-    el.classList.add("text-[#a78bfa]", "font-medium");
+    el.classList.remove('text-[#a1a1aa]')
+    el.classList.add('text-[#f97316]', 'font-medium')
   }
-  navigate(page);
-};
+  navigate(page)
+}
 
 document.getElementById("topbar").innerHTML = `
   <div class="flex items-center justify-between px-6 py-3 border-b border-[#27272a] bg-[#030711]">

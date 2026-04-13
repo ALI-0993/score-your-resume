@@ -25,7 +25,7 @@ export function renderUpload() {
           </div>
 
           <div id="panel-upload">
-            <label class="flex items-center justify-center gap-4 border border-dashed border-[#3f3f46] rounded-lg px-8 py-5 cursor-pointer hover:border-[#a78bfa] transition-all">
+            <label class="flex items-center justify-center gap-4 bg-[#030711] border border-dashed border-[#3f3f46] rounded-lg px-8 py-5 cursor-pointer hover:border-[#a78bfa] transition-all">
               <input type="file" class="hidden" accept=".pdf,.txt,.docx" id="file-input" onchange="handleFile(this.files[0])">
               <svg class="w-5 h-5 text-[#a78bfa]" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/></svg>
               <div>
