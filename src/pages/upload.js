@@ -94,7 +94,7 @@ export function renderUpload() {
               <button onclick="loadDemo()" class="flex-1 py-2.5 text-sm border border-[#3f3f46] text-[#a1a1aa] rounded-lg hover:border-[#a78bfa] hover:text-[#a78bfa] transition-all">Load demo</button>
               <button id="analyze-btn" onclick="runAnalysis()" class="flex-1 py-2.5 text-sm bg-[#f97316] text-white rounded-lg hover:opacity-90 transition-all font-medium">Run ATS Check</button>
             </div>
-            <div class="text-xs text-[#52525b] text-center">Powered by Gemini AI · Your data is private</div>
+            <div class="text-xs text-[#52525b] text-center">Powered by Groq · Your data is private</div>
           </div>
 
         </div>

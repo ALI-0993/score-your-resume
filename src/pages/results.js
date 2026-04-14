@@ -42,12 +42,8 @@ export function renderResults() {
             New upload
             <svg class="w-3.5 h-3.5 text-[#52525b]" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
           </button>
-          <button class="qa-btn">
+          <button onclick="downloadPDF()" class="qa-btn">
             Download PDF
-            <svg class="w-3.5 h-3.5 text-[#52525b]" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
-          </button>
-          <button class="qa-btn">
-            Re-analyze
             <svg class="w-3.5 h-3.5 text-[#52525b]" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
           </button>
         </div>
@@ -158,4 +154,31 @@ function drawDonut(score) {
   ctx.lineWidth = lw
   ctx.lineCap = 'round'
   ctx.stroke()
+}
+
+window.downloadPDF = async () => {
+  const { jsPDF } = await import('jspdf')
+  const d = window._analysisResult
+  const doc = new jsPDF()
+  doc.setFontSize(18)
+  doc.text('ATS Score Report', 20, 20)
+  doc.setFontSize(12)
+  doc.text(`Score: ${d.score}/100`, 20, 35)
+  doc.text(`ATS Compatibility: ${d.ats_score}%`, 20, 45)
+  doc.text(`Keyword Match: ${d.keyword_match}%`, 20, 55)
+  doc.text(`Readability: ${d.readability}%`, 20, 65)
+  doc.text(`Job Match: ${d.job_match}%`, 20, 75)
+  doc.setFontSize(14)
+  doc.text('Strengths:', 20, 90)
+  doc.setFontSize(11)
+  d.strengths.forEach((s, i) => doc.text(`• ${s}`, 25, 100 + i * 10))
+  doc.setFontSize(14)
+  doc.text('Weaknesses:', 20, 135)
+  doc.setFontSize(11)
+  d.weaknesses.forEach((w, i) => doc.text(`• ${w}`, 25, 145 + i * 10))
+  doc.setFontSize(14)
+  doc.text('Missing Keywords:', 20, 185)
+  doc.setFontSize(11)
+  doc.text(d.missing_keywords.join(', '), 25, 195)
+  doc.save('ats-score-report.pdf')
 }
