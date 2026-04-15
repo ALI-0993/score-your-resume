@@ -49,7 +49,7 @@ export function renderResults() {
         </div>
       </div>
 
-      <div class="grid grid-cols-4 gap-3">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
         <div class="insight-card">
           <div class="ic-header" style="color:#34d399">
             <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
@@ -82,7 +82,7 @@ export function renderResults() {
         </div>
       </div>
 
-      <div class="grid grid-cols-[1fr_300px] gap-4">
+      <div class="grid grid-cols-1 md:grid-cols-[1fr_300px] gap-4">
         <div class="bg-[#040A1A] border border-[#27272a] rounded-xl p-5">
           <div class="text-sm font-medium mb-4">Detailed analysis</div>
           <div class="text-xs text-[#52525b] uppercase tracking-widest mb-3">Work experience refinement</div>

@@ -31,19 +31,32 @@ window.handleNav = (page) => {
   navigate(page)
 }
 
-document.getElementById("topbar").innerHTML = `
-  <div class="flex items-center justify-between px-6 py-3 border-b border-[#27272a] bg-[#030711]">
-    <div class="text-[#f97316] font-bold text-lg tracking-tight">ScoreResume</div>
-    <nav class="flex items-center gap-8">
-      <span id="nav-ats" onclick="handleNav('upload')" class="text-base cursor-pointer text-[#f97316] font-medium transition-all hover:text-white">ATS Score</span> 
+document.getElementById('topbar').innerHTML = `
+  <div class="flex items-center justify-between px-4 md:px-6 py-3 border-b border-[#27272a] bg-[#030711]">
+    <div class="text-[#f97316] font-bold text-base md:text-lg tracking-tight">ScoreYourResume</div>
+    <nav class="hidden md:flex items-center gap-8">
+      <span id="nav-ats" onclick="handleNav('upload')" class="text-base cursor-pointer text-[#f97316] font-medium transition-all hover:text-white">ATS Score</span>
       <span id="nav-history" onclick="handleNav('history')" class="text-base cursor-pointer text-[#a1a1aa] transition-all hover:text-white">History</span>
       <span id="nav-templates" onclick="handleNav('templates')" class="text-base cursor-pointer text-[#a1a1aa] transition-all hover:text-white">Templates</span>
     </nav>
     <div class="flex items-center gap-3">
-      <button class="px-4 py-2 text-sm bg-[#f97316] text-white rounded-lg hover:opacity-90 transition-all font-medium">Login / Signup</button>
-      <div class="w-8 h-8 rounded-full bg-[#1e1535] border border-[#a78bfa] flex items-center justify-center text-[#a78bfa] text-xs font-medium cursor-pointer">AC</div>
+      <button class="md:hidden flex flex-col gap-1 p-2" onclick="toggleMobileMenu()">
+        <div class="w-5 h-0.5 bg-white"></div>
+        <div class="w-5 h-0.5 bg-white"></div>
+        <div class="w-5 h-0.5 bg-white"></div>
+      </button>
     </div>
   </div>
-`;
+  <div id="mobile-menu" class="hidden md:hidden bg-[#030711] border-b border-[#27272a] px-4 py-3 flex flex-col gap-3">
+    <span onclick="handleNav('upload');toggleMobileMenu()" class="text-base cursor-pointer text-[#f97316] font-medium">ATS Score</span>
+    <span onclick="handleNav('history');toggleMobileMenu()" class="text-base cursor-pointer text-[#a1a1aa]">History</span>
+    <span onclick="handleNav('templates');toggleMobileMenu()" class="text-base cursor-pointer text-[#a1a1aa]">Templates</span>
+  </div>
+`
+
+window.toggleMobileMenu = () => {
+  const menu = document.getElementById('mobile-menu')
+  menu.classList.toggle('hidden')
+}
 
 navigate("upload");
