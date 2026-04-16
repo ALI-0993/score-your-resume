@@ -18,20 +18,35 @@ export function navigate(page) {
 }
 
 window.handleNav = (page) => {
-  document.querySelectorAll('#nav-ats, #nav-history, #nav-templates').forEach(n => {
-    n.classList.remove('text-[#f97316]', 'font-medium')
-    n.classList.add('text-[#a1a1aa]')
-  })
-  const map = { upload: 'nav-ats', history: 'nav-history', templates: 'nav-templates' }
-  const el = document.getElementById(map[page])
+  document
+    .querySelectorAll("#nav-ats, #nav-history, #nav-templates")
+    .forEach((n) => {
+      n.classList.remove("text-[#f97316]", "font-medium");
+      n.classList.add("text-[#a1a1aa]");
+    });
+  const map = {
+    upload: "nav-ats",
+    history: "nav-history",
+    templates: "nav-templates",
+  };
+  const el = document.getElementById(map[page]);
   if (el) {
-    el.classList.remove('text-[#a1a1aa]')
-    el.classList.add('text-[#f97316]', 'font-medium')
+    el.classList.remove("text-[#a1a1aa]");
+    el.classList.add("text-[#f97316]", "font-medium");
   }
-  navigate(page)
-}
+  document.querySelectorAll("#mobile-menu span").forEach((n) => {
+    n.classList.remove("text-[#f97316]", "font-medium");
+    n.classList.add("text-[#a1a1aa]");
+  });
+  const mobileMap = { upload: 0, history: 1, templates: 2 };
+  const spans = document.querySelectorAll("#mobile-menu span");
+  if (spans[mobileMap[page]]) {
+    spans[mobileMap[page]].classList.add("text-[#f97316]", "font-medium");
+  }
+  navigate(page);
+};
 
-document.getElementById('topbar').innerHTML = `
+document.getElementById("topbar").innerHTML = `
   <div class="flex items-center justify-between px-4 md:px-6 py-3 border-b border-[#27272a] bg-[#030711]">
     <div class="text-[#f97316] font-bold text-base md:text-lg tracking-tight">ScoreYourResume</div>
     <nav class="hidden md:flex items-center gap-8">
@@ -52,11 +67,11 @@ document.getElementById('topbar').innerHTML = `
     <span onclick="handleNav('history');toggleMobileMenu()" class="text-base cursor-pointer text-[#a1a1aa]">History</span>
     <span onclick="handleNav('templates');toggleMobileMenu()" class="text-base cursor-pointer text-[#a1a1aa]">Templates</span>
   </div>
-`
+`;
 
 window.toggleMobileMenu = () => {
-  const menu = document.getElementById('mobile-menu')
-  menu.classList.toggle('hidden')
-}
+  const menu = document.getElementById("mobile-menu");
+  menu.classList.toggle("hidden");
+};
 
 navigate("upload");

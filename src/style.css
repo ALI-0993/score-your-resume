@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 .nav-item {
-  @apply flex items-center gap-3 px-4 py-2 text-sm text-[#a1a1aa] cursor-pointer border-l-2 border-transparent transition-all;
+  @apply flex items-center gap-2 md:gap-3 px-3 md:px-4 py-2 text-xs md:text-sm;
 }
 .nav-item:hover {
   @apply text-white bg-[#a78bfa]/10;
@@ -32,19 +32,4 @@
 }
 .qa-btn {
   @apply flex items-center justify-between bg-[#18181b] border border-[#27272a] rounded-lg px-3 py-2.5 text-xs text-[#a1a1aa] hover:border-[#a78bfa] hover:text-[#a78bfa] transition-all;
-}
-
-@media (max-width: 768px) {
-  .grid-cols-2 {
-    grid-template-columns: 1fr !important;
-  }
-  .grid-cols-4 {
-    grid-template-columns: repeat(2, 1fr) !important;
-  }
-  .grid-cols-\[1fr_300px\] {
-    grid-template-columns: 1fr !important;
-  }
-  .grid-cols-\[auto_1fr_auto\] {
-    grid-template-columns: 1fr !important;
-  }
 }
