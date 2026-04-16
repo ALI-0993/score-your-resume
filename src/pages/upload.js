@@ -69,7 +69,7 @@ export function renderUpload() {
               <div class="text-xs text-[#52525b] mt-0.5">Analyze your resume against ATS systems instantly.</div>
             </div>
 
-            <div class="grid grid-cols-3 gap-3">
+            <div class="grid grid-cols-3 gap-3 text-sm md:text-base">
               <div class="bg-[#030711] rounded-lg p-3 text-center">
                 <div class="text-[#a78bfa] text-base font-medium">AI</div>
                 <div class="text-xs text-[#52525b] mt-1">Powered</div>
@@ -90,7 +90,7 @@ export function renderUpload() {
               <div class="text-xs text-[#a1a1aa]" id="status-text">Analyzing...</div>
             </div>
 
-            <div class="flex gap-3">
+            <div class="flex flex-col sm:flex-row gap-3">
               <button onclick="loadDemo()" class="flex-1 py-2.5 text-sm border border-[#3f3f46] text-[#a1a1aa] rounded-lg hover:border-[#a78bfa] hover:text-[#a78bfa] transition-all">Load demo</button>
               <button id="analyze-btn" onclick="runAnalysis()" class="flex-1 py-2.5 text-sm bg-[#f97316] text-white rounded-lg hover:opacity-90 transition-all font-medium">Run ATS Check</button>
             </div>

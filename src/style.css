@@ -33,18 +33,3 @@
 .qa-btn {
   @apply flex items-center justify-between bg-[#18181b] border border-[#27272a] rounded-lg px-3 py-2.5 text-xs text-[#a1a1aa] hover:border-[#a78bfa] hover:text-[#a78bfa] transition-all;
 }
-
-@media (max-width: 768px) {
-  .grid-cols-2 {
-    grid-template-columns: 1fr !important;
-  }
-  .grid-cols-4 {
-    grid-template-columns: repeat(2, 1fr) !important;
-  }
-  .grid-cols-\[1fr_300px\] {
-    grid-template-columns: 1fr !important;
-  }
-  .grid-cols-\[auto_1fr_auto\] {
-    grid-template-columns: 1fr !important;
-  }
-}
