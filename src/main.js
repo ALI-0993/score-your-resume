@@ -47,14 +47,14 @@ window.handleNav = (page) => {
 };
 
 document.getElementById("topbar").innerHTML = `
-  <div class="flex items-center justify-between px-4 md:px-6 py-3 border-b border-[#27272a] bg-[#030711]">
+  <div class="flex items-center px-4 md:px-6 py-3 border-b border-[#27272a] bg-[#030711] relative">
     <div class="text-[#f97316] font-bold text-base md:text-lg tracking-tight">ScoreYourResume</div>
-    <nav class="hidden md:flex items-center gap-8">
+    <nav class="hidden md:flex items-center gap-8 absolute left-1/2 transform -translate-x-1/2">
       <span id="nav-ats" onclick="handleNav('upload')" class="text-base cursor-pointer text-[#f97316] font-medium transition-all hover:text-white">ATS Score</span>
       <span id="nav-history" onclick="handleNav('history')" class="text-base cursor-pointer text-[#a1a1aa] transition-all hover:text-white">History</span>
       <span id="nav-templates" onclick="handleNav('templates')" class="text-base cursor-pointer text-[#a1a1aa] transition-all hover:text-white">Templates</span>
     </nav>
-    <div class="flex items-center gap-3">
+    <div class="flex items-center gap-3 ml-auto">
       <button class="md:hidden flex flex-col gap-1 p-2" onclick="toggleMobileMenu()">
         <div class="w-5 h-0.5 bg-white"></div>
         <div class="w-5 h-0.5 bg-white"></div>
