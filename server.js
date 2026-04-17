@@ -4,7 +4,9 @@ import express from 'express'
 import cors from 'cors'
 
 const app = express()
-app.use(cors())
+app.use(cors({
+  origin: ['http://localhost:5173', 'https://score-your-resume.vercel.app']
+}))
 app.use(express.json())
 
 const API_KEY = process.env.GEMINI_API_KEY

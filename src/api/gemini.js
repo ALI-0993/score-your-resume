@@ -49,7 +49,7 @@ Return exactly this JSON structure:
   "missing_keyword_highlight": "<most important missing keyword>"
 }`
 
-  const res = await fetch('/api/analyze', {
+  const res = await fetch('https://score-your-resume.onrender.com/api/analyze', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ prompt })
