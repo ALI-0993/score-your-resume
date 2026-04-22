@@ -1,46 +1,49 @@
 export function renderUpload() {
   document.getElementById('page').innerHTML = `
-    <div class="w-full max-w-3xl mx-auto">
+    <div class="w-full max-w-5xl mx-auto">
 
-      <div class="text-center mb-6 sm:mb-8">
-        <h1 class="text-2xl sm:text-3xl font-bold mb-2">ATS Fit Score</h1>
-        <p class="text-[#a1a1aa] text-sm">See how well your resume aligns with recruiter systems before you apply.</p>
+      <!-- Header -->
+      <div class="text-center mb-8">
+        <h1 class="text-2xl sm:text-3xl lg:text-4xl font-bold mb-2">ATS Fit Score</h1>
+        <p class="text-[#a1a1aa] text-sm sm:text-base">See how well your resume aligns with recruiter systems before you apply.</p>
       </div>
 
       <div class="flex flex-col gap-4">
 
-        <!-- Resume Input Card -->
+        <!-- Resume Card — full width always -->
         <div class="bg-[#040A1A] border border-[#27272a] rounded-xl p-4 sm:p-6">
-          <div class="flex flex-col gap-3 mb-4">
-            <div class="flex items-center gap-3">
-              <div class="w-8 h-8 bg-[#1e1535] rounded-lg flex items-center justify-center shrink-0">
+          <div class="flex items-center justify-between gap-3 mb-4">
+            <div class="flex items-center gap-3 min-w-0">
+              <div class="w-9 h-9 bg-[#1e1535] rounded-lg flex items-center justify-center shrink-0">
                 <svg class="w-4 h-4 text-[#a78bfa]" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
               </div>
-              <div class="flex-1 min-w-0">
-                <div class="text-sm font-medium">Your Resume</div>
-                <div class="text-xs text-[#52525b]">Paste your resume text or upload a file.</div>
+              <div class="min-w-0">
+                <div class="text-sm font-semibold">Your Resume</div>
+                <div class="text-xs text-[#52525b] hidden sm:block">Paste your resume text or upload a file.</div>
               </div>
             </div>
-            <div class="flex gap-2">
-              <button id="tab-upload" onclick="switchTab('upload')" class="tab-btn active-tab flex-1 sm:flex-none">Upload PDF</button>
-              <button id="tab-paste" onclick="switchTab('paste')" class="tab-btn flex-1 sm:flex-none">Paste text</button>
+            <div class="flex gap-2 shrink-0">
+              <button id="tab-upload" onclick="switchTab('upload')" class="tab-btn active-tab">Upload PDF</button>
+              <button id="tab-paste" onclick="switchTab('paste')" class="tab-btn">Paste text</button>
             </div>
           </div>
 
+          <!-- Upload panel -->
           <div id="panel-upload">
-            <label class="flex flex-col sm:flex-row items-center justify-center gap-3 bg-[#030711] border border-dashed border-[#3f3f46] rounded-lg px-4 py-6 cursor-pointer hover:border-[#a78bfa] transition-all text-center sm:text-left">
+            <label class="flex flex-col sm:flex-row items-center justify-center gap-3 bg-[#030711] border border-dashed border-[#3f3f46] rounded-lg px-6 py-8 sm:py-5 cursor-pointer hover:border-[#a78bfa] transition-all text-center">
               <input type="file" class="hidden" accept=".pdf,.txt,.docx" id="file-input" onchange="handleFile(this.files[0])">
               <svg class="w-6 h-6 text-[#a78bfa] shrink-0" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/></svg>
               <div>
-                <div class="text-sm text-[#a1a1aa]"><span class="text-[#a78bfa] font-medium">Tap to upload</span> or drag and drop</div>
+                <div class="text-sm text-[#a1a1aa]"><span class="text-[#a78bfa] font-medium">Click to upload</span> or drag and drop</div>
                 <div class="text-xs text-[#52525b] mt-0.5">PDF, TXT, DOCX · Max 5MB</div>
               </div>
-              <div id="file-name" class="text-xs text-[#a1a1aa] sm:ml-auto"></div>
+              <div id="file-name" class="sm:ml-auto text-xs text-[#a1a1aa]"></div>
             </label>
           </div>
 
+          <!-- Paste panel -->
           <div id="panel-paste" class="hidden">
-            <textarea id="resume-text" class="w-full bg-[#030711] border border-[#27272a] rounded-lg p-3 text-sm text-white placeholder-[#52525b] outline-none focus:border-[#a78bfa] transition-all resize-none" style="height:140px" placeholder="Paste your full resume text here..."></textarea>
+            <textarea id="resume-text" class="w-full bg-[#030711] border border-[#27272a] rounded-lg p-3 text-sm text-white placeholder-[#52525b] outline-none focus:border-[#a78bfa] transition-all resize-none" style="height:150px" placeholder="Paste your full resume text here..."></textarea>
           </div>
 
           <div id="resume-preview" class="mt-3 text-xs text-[#52525b] flex items-center gap-2">
@@ -49,57 +52,63 @@ export function renderUpload() {
           </div>
         </div>
 
-        <!-- Job Description Card -->
-        <div class="bg-[#040A1A] border border-[#27272a] rounded-xl p-4 sm:p-6 flex flex-col gap-3">
-          <div class="flex items-start justify-between gap-2">
+        <!-- Bottom row: side-by-side on md+, stacked on mobile -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+          <!-- Job Description -->
+          <div class="bg-[#040A1A] border border-[#27272a] rounded-xl p-4 sm:p-6 flex flex-col gap-3">
+            <div class="flex items-start justify-between gap-2">
+              <div>
+                <div class="text-sm font-semibold">Job Description</div>
+                <div class="text-xs text-[#52525b] mt-0.5">Paste the job description for a tailored match score.</div>
+              </div>
+              <span class="text-xs bg-[#040A1A] border border-[#27272a] text-[#a1a1aa] px-2 py-0.5 rounded-full shrink-0">Optional</span>
+            </div>
+            <textarea id="jd-text" class="w-full flex-1 bg-[#030711] border border-[#27272a] rounded-lg p-3 text-sm text-white placeholder-[#52525b] outline-none focus:border-[#a78bfa] transition-all resize-none" style="height:160px" placeholder="Paste job description here..."></textarea>
+            <div class="text-xs text-[#34d399] flex items-center gap-1.5">
+              <svg class="w-3.5 h-3.5 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+              Adding a job description improves match accuracy
+            </div>
+          </div>
+
+          <!-- Run ATS Check -->
+          <div class="bg-[#040A1A] border border-[#27272a] rounded-xl p-4 sm:p-6 flex flex-col gap-4">
             <div>
-              <div class="text-sm font-medium">Job Description</div>
-              <div class="text-xs text-[#52525b] mt-0.5">Paste the job posting for a tailored match score.</div>
+              <div class="text-sm font-semibold">Run ATS Check</div>
+              <div class="text-xs text-[#52525b] mt-0.5">Analyze your resume against ATS systems instantly.</div>
             </div>
-            <span class="text-xs bg-[#040A1A] border border-[#27272a] text-[#a1a1aa] px-2 py-0.5 rounded-full shrink-0">Optional</span>
+
+            <div class="grid grid-cols-3 gap-3">
+              <div class="bg-[#030711] rounded-lg p-3 text-center">
+                <div class="text-[#a78bfa] text-lg font-semibold">AI</div>
+                <div class="text-xs text-[#52525b] mt-1">Powered</div>
+              </div>
+              <div class="bg-[#030711] rounded-lg p-3 text-center">
+                <div class="text-[#34d399] text-lg font-semibold">ATS</div>
+                <div class="text-xs text-[#52525b] mt-1">Optimized</div>
+              </div>
+              <div class="bg-[#030711] rounded-lg p-3 text-center">
+                <div class="text-[#f59e0b] text-lg font-semibold">100</div>
+                <div class="text-xs text-[#52525b] mt-1">Max score</div>
+              </div>
+            </div>
+
+            <div id="error-box" class="hidden bg-red-950/30 border border-red-800/40 text-red-400 text-xs rounded-lg px-3 py-2"></div>
+            <div id="status-bar" class="hidden bg-[#040A1A] border border-[#27272a] rounded-lg px-3 py-2 flex items-center gap-2">
+              <div class="w-3.5 h-3.5 border-2 border-[#3f3f46] border-t-[#a78bfa] rounded-full animate-spin shrink-0"></div>
+              <div class="text-xs text-[#a1a1aa]" id="status-text">Analyzing...</div>
+            </div>
+
+            <div class="flex-1"></div>
+
+            <div class="grid grid-cols-2 gap-3">
+              <button onclick="loadDemo()" class="py-2.5 text-sm border border-[#3f3f46] text-[#a1a1aa] rounded-lg hover:border-[#a78bfa] hover:text-[#a78bfa] transition-all">Load demo</button>
+              <button id="analyze-btn" onclick="runAnalysis()" class="py-2.5 text-sm bg-[#f97316] text-white rounded-lg hover:opacity-90 transition-all font-medium">Run ATS Check</button>
+            </div>
+            <div class="text-xs text-[#52525b] text-center -mt-1">Powered by Groq · Your data is private</div>
           </div>
-          <textarea id="jd-text" class="w-full bg-[#030711] border border-[#27272a] rounded-lg p-3 text-sm text-white placeholder-[#52525b] outline-none focus:border-[#a78bfa] transition-all resize-none" style="height:120px" placeholder="Paste job description here..."></textarea>
-          <div class="text-xs text-[#34d399] flex items-center gap-1.5">
-            <svg class="w-3.5 h-3.5 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
-            Adding a job description improves match accuracy
-          </div>
+
         </div>
-
-        <!-- Run ATS Check Card -->
-        <div class="bg-[#040A1A] border border-[#27272a] rounded-xl p-4 sm:p-6 flex flex-col gap-4">
-          <div>
-            <div class="text-sm font-medium">Run ATS Check</div>
-            <div class="text-xs text-[#52525b] mt-0.5">Analyze your resume against ATS systems instantly.</div>
-          </div>
-
-          <div class="grid grid-cols-3 gap-3">
-            <div class="bg-[#030711] rounded-lg p-3 text-center">
-              <div class="text-[#a78bfa] text-lg font-semibold">AI</div>
-              <div class="text-xs text-[#52525b] mt-1">Powered</div>
-            </div>
-            <div class="bg-[#030711] rounded-lg p-3 text-center">
-              <div class="text-[#34d399] text-lg font-semibold">ATS</div>
-              <div class="text-xs text-[#52525b] mt-1">Optimized</div>
-            </div>
-            <div class="bg-[#030711] rounded-lg p-3 text-center">
-              <div class="text-[#f59e0b] text-lg font-semibold">100</div>
-              <div class="text-xs text-[#52525b] mt-1">Max score</div>
-            </div>
-          </div>
-
-          <div id="error-box" class="hidden bg-red-950/30 border border-red-800/40 text-red-400 text-xs rounded-lg px-3 py-2"></div>
-          <div id="status-bar" class="hidden bg-[#040A1A] border border-[#27272a] rounded-lg px-3 py-2 flex items-center gap-2">
-            <div class="w-3.5 h-3.5 border-2 border-[#3f3f46] border-t-[#a78bfa] rounded-full animate-spin shrink-0"></div>
-            <div class="text-xs text-[#a1a1aa]" id="status-text">Analyzing...</div>
-          </div>
-
-          <div class="grid grid-cols-2 gap-3">
-            <button onclick="loadDemo()" class="py-3 text-sm border border-[#3f3f46] text-[#a1a1aa] rounded-lg hover:border-[#a78bfa] hover:text-[#a78bfa] transition-all">Load demo</button>
-            <button id="analyze-btn" onclick="runAnalysis()" class="py-3 text-sm bg-[#f97316] text-white rounded-lg hover:opacity-90 transition-all font-medium">Run ATS Check</button>
-          </div>
-          <div class="text-xs text-[#52525b] text-center">Powered by Groq · Your data is private</div>
-        </div>
-
       </div>
     </div>
   `
