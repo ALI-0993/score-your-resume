@@ -31,11 +31,11 @@ export function renderUpload() {
           <!-- Upload panel -->
           <div id="panel-upload">
             <label class="flex flex-col sm:flex-row items-center justify-center gap-3 bg-[#030711] border border-dashed border-[#3f3f46] rounded-lg px-6 py-8 sm:py-5 cursor-pointer hover:border-[#a78bfa] transition-all text-center">
-              <input type="file" class="hidden" accept=".pdf,.txt,.docx" id="file-input" onchange="handleFile(this.files[0])">
+              <input type="file" class="hidden" accept=".pdf,.txt" id="file-input" onchange="handleFile(this.files[0])">
               <svg class="w-6 h-6 text-[#a78bfa] shrink-0" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/></svg>
               <div>
                 <div class="text-sm text-[#a1a1aa]"><span class="text-[#a78bfa] font-medium">Click to upload</span> or drag and drop</div>
-                <div class="text-xs text-[#52525b] mt-0.5">PDF, TXT, DOCX · Max 5MB</div>
+                <div class="text-xs text-[#52525b] mt-0.5">PDF, TXT · Max 5MB</div>
               </div>
               <div id="file-name" class="sm:ml-auto text-xs text-[#a1a1aa]"></div>
             </label>
@@ -105,7 +105,7 @@ export function renderUpload() {
               <button onclick="loadDemo()" class="py-2.5 text-sm border border-[#3f3f46] text-[#a1a1aa] rounded-lg hover:border-[#a78bfa] hover:text-[#a78bfa] transition-all">Load demo</button>
               <button id="analyze-btn" onclick="runAnalysis()" class="py-2.5 text-sm bg-[#f97316] text-white rounded-lg hover:opacity-90 transition-all font-medium">Run ATS Check</button>
             </div>
-            <div class="text-xs text-[#52525b] text-center -mt-1">Powered by Groq · Your data is private</div>
+            <div class="text-xs text-[#52525b] text-center -mt-1">Powered by Gemini · Your data is private</div>
           </div>
 
         </div>
